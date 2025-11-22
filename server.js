@@ -2,25 +2,24 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
-const cookieParser = require("cookie-parser");
 const { connectDB } = require("./lib/db");
 
 dotenv.config();
 
 const app = express();
-const AdminFrontendUrl = process.env.ADMIN_FRONTEND_URL;
-const LandingPageFrontendUrl = process.env.LANDING_PAGE_FRONTEND_URL;
 
 // Middlewares
 app.use(express.json());
-app.use(cookieParser());
 app.use(
   cors({
-    origin: [AdminFrontendUrl, LandingPageFrontendUrl],
-    credentials: true,
+    origin: function (origin, callback) {
+      // Allow all origins
+      callback(null, true);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 app.use("/uploads", express.static("uploads"));
 
 // Routes

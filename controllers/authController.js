@@ -42,15 +42,6 @@ exports.login = async (req, res) => {
     // Create token
     const token = generateToken(adminExist._id);
 
-    // Set cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path: "/",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-
     // Remove password before sending data
     const { password: _, ...adminData } = adminExist._doc;
 
@@ -58,6 +49,7 @@ exports.login = async (req, res) => {
       message: "Login successful",
       success: true,
       admin: adminData,
+      token
     });
   } catch (error) {
     return res.status(500).json({
@@ -68,27 +60,27 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.logout = (req, res) => {
-  try {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path: "/",
-    });
+// exports.logout = (req, res) => {
+//   try {
+//     res.clearCookie("token", {
+//       httpOnly: true,
+//       secure: true,
+//       sameSite: "None",
+//       path: "/",
+//     });
 
-    return res.status(200).json({
-      success: true,
-      message: "Logout successful",
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Logout failed",
-      error: error.message,
-    });
-  }
-};
+//     return res.status(200).json({
+//       success: true,
+//       message: "Logout successful",
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       success: false,
+//       message: "Logout failed",
+//       error: error.message,
+//     });
+//   }
+// };
 
 exports.checkAuth = (req, res) => {
   res.status(200).json({
