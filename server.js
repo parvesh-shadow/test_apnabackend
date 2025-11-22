@@ -10,7 +10,6 @@ dotenv.config();
 const app = express();
 const AdminFrontendUrl = process.env.ADMIN_FRONTEND_URL;
 const LandingPageFrontendUrl = process.env.LANDING_PAGE_FRONTEND_URL;
-console.log(AdminFrontendUrl, LandingPageFrontendUrl);
 
 // Middlewares
 app.use(express.json());
