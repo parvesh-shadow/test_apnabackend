@@ -46,6 +46,14 @@ const TestimonialSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const VideoSchema = new mongoose.Schema(
+  {
+    link: String,
+    text: String,
+  },
+  { _id: false }
+);
+
 const FAQSchema = new mongoose.Schema(
   {
     question: String,
@@ -97,7 +105,7 @@ const ProjectSchema = new mongoose.Schema(
       heading: String,
       nestedHeading: String,
       paragraph: String,
-      videos: [String], // Array of video URLs/paths
+      videos: [VideoSchema],
       includeInputSection: { type: Boolean, default: false },
     },
 
@@ -128,8 +136,13 @@ const ProjectSchema = new mongoose.Schema(
       heading: String,
       testimonials: [TestimonialSchema],
     },
-
-    // FAQ Section
+    //News highlight
+    NewsHighlight: {
+      include: { type: Boolean, default: false },
+      heading: String,
+      images: [String],
+    },
+    // FAQ Sections
     faq: {
       include: { type: Boolean, default: false },
       heading: String,

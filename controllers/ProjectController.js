@@ -23,7 +23,6 @@ exports.createProject = async (req, res) => {
     let data = req.body;
     data.pageId = generatePageId();
     const project = await ProjectModel.create(data);
-
     res.json({
       success: true,
       message: "Project created successfully",
@@ -62,7 +61,7 @@ exports.getOneProject = async (req, res) => {
   }
 };
 
-exports.getAll = async (req, res) => {  
+exports.getAll = async (req, res) => {
   try {
     const allProjects = await ProjectModel.find().sort({ createdAt: -1 });
     res.status(200).json({
@@ -87,7 +86,7 @@ exports.updateDraft = async (req, res) => {
     Object.keys(data).forEach((key) => {
       try {
         data[key] = JSON.parse(data[key]);
-      } catch (err) { }
+      } catch (err) {}
     });
 
     // Inject file paths into the right place
