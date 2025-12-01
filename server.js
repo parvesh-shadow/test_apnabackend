@@ -127,7 +127,7 @@ const seedDefaultAdmin = async () => {
 
 app.get("/seo/:slug", async (req, res) => {
   const { slug } = req.params;
-  console.log(slug);
+  // console.log(slug);
   // Fetch SEO data from DB
   const page = await ProjectModel.findOne({ "SEO.slug": slug });
   console.log(page);
